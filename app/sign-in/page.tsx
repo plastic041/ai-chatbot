@@ -1,16 +1,15 @@
-import { next } from '@/auth'
-import { LoginButton } from '@/components/login-button'
+import { getPageSession } from '@/lib/session'
 import { redirect } from 'next/navigation'
 
-export default async function SignInPage() {
-  const session = await next()
-  // redirect to home if user is already logged in
-  if (session?.user) {
-    redirect('/')
-  }
+const Page = async () => {
+  const session = await getPageSession()
+  if (session) redirect('/')
   return (
-    <div className="flex h-[calc(100vh-theme(spacing.16))] items-center justify-center py-10">
-      <LoginButton />
-    </div>
+    <>
+      <h1>Sign in</h1>
+      <a href="/sign-in/github">Sign in with Github</a>
+    </>
   )
 }
+
+export default Page

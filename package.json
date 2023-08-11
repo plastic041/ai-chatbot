@@ -14,15 +14,19 @@
     "format:check": "prettier --check \"{app,lib,components}**/*.{ts,tsx,mdx}\" --cache"
   },
   "dependencies": {
+    "@lucia-auth/adapter-sqlite": "^2.0.0",
+    "@lucia-auth/oauth": "^2.1.1",
     "@phosphor-icons/react": "^2.0.10",
     "@radix-ui/themes": "^1.0.0",
     "@vercel/analytics": "^1.0.2",
     "@vercel/kv": "^0.2.2",
     "@vercel/og": "^0.5.10",
     "ai": "^2.1.32",
+    "better-sqlite3": "^8.5.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^1.2.1",
     "focus-trap-react": "^10.2.1",
+    "lucia": "^2.2.0",
     "nanoid": "^4.0.2",
     "next": "13.4.13",
     "next-auth": "4.22.5",
@@ -40,6 +44,7 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.9",
+    "@types/better-sqlite3": "^7.6.4",
     "@types/node": "^17.0.45",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",

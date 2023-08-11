@@ -3,11 +3,10 @@
 import * as React from 'react'
 import { signIn } from 'next-auth/react'
 
-import { cn } from '@/lib/utils'
-import { Button, type ButtonProps } from '@radix-ui/themes'
+import { Button } from '@radix-ui/themes'
 import { IconGitHub, IconSpinner } from '@/components/ui/icons'
 
-interface LoginButtonProps extends ButtonProps {
+interface LoginButtonProps extends React.ComponentProps<typeof Button> {
   showGithubIcon?: boolean
   text?: string
 }
@@ -15,7 +14,6 @@ interface LoginButtonProps extends ButtonProps {
 export function LoginButton({
   text = 'Login with GitHub',
   showGithubIcon = true,
-  className,
   ...props
 }: LoginButtonProps) {
   const [isLoading, setIsLoading] = React.useState(false)
@@ -28,7 +26,6 @@ export function LoginButton({
         signIn('github', { callbackUrl: `/` })
       }}
       disabled={isLoading}
-      className={cn(className)}
       {...props}
     >
       {isLoading ? (
