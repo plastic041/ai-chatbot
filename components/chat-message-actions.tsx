@@ -2,8 +2,8 @@
 
 import { type Message } from 'ai'
 
-import { Button } from '@/components/ui/button'
-import { IconCheck, IconCopy } from '@/components/ui/icons'
+import { IconButton, Tooltip } from '@radix-ui/themes'
+import { Check, Copy } from '@phosphor-icons/react'
 import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard'
 import { cn } from '@/lib/utils'
 
@@ -31,10 +31,12 @@ export function ChatMessageActions({
       )}
       {...props}
     >
-      <Button variant="ghost" size="icon" onClick={onCopy}>
-        {isCopied ? <IconCheck /> : <IconCopy />}
-        <span className="sr-only">Copy message</span>
-      </Button>
+      <Tooltip content="Copy message">
+        <IconButton variant="ghost" onClick={onCopy}>
+          {isCopied ? <Check /> : <Copy />}
+          <span className="sr-only">Copy message</span>
+        </IconButton>
+      </Tooltip>
     </div>
   )
 }

@@ -8,17 +8,8 @@ import { ChatPanel } from '@/components/chat-panel'
 import { EmptyScreen } from '@/components/empty-screen'
 import { ChatScrollAnchor } from '@/components/chat-scroll-anchor'
 import { useLocalStorage } from '@/lib/hooks/use-local-storage'
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog'
+import { Button, Dialog, Flex, Link, TextField } from '@radix-ui/themes'
 import { useState } from 'react'
-import { Button } from './ui/button'
-import { Input } from './ui/input'
 import { toast } from 'react-hot-toast'
 
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
@@ -27,7 +18,7 @@ export interface ChatProps extends React.ComponentProps<'div'> {
   id?: string
 }
 
-export function Chat({ id, initialMessages, className }: ChatProps) {
+export function Chat({ id, initialMessages }: ChatProps) {
   const [previewToken, setPreviewToken] = useLocalStorage<string | null>(
     'ai-token',
     null
@@ -50,7 +41,7 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
     })
   return (
     <>
-      <div className={cn('pb-[200px] pt-4 md:pt-10', className)}>
+      <div className={cn('pb-[200px] pt-4 md:pt-10')}>
         {messages.length ? (
           <>
             <ChatList messages={messages} />
@@ -71,31 +62,31 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
         setInput={setInput}
       />
 
-      <Dialog open={previewTokenDialog} onOpenChange={setPreviewTokenDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Enter your OpenAI Key</DialogTitle>
-            <DialogDescription>
+      <Dialog.Root
+        open={previewTokenDialog}
+        onOpenChange={setPreviewTokenDialog}
+      >
+        <Flex direction="column" gap="2" asChild>
+          <Dialog.Content>
+            <Dialog.Title>Enter your OpenAI Key</Dialog.Title>
+            <Dialog.Description>
               If you have not obtained your OpenAI API key, you can do so by{' '}
-              <a
-                href="https://platform.openai.com/signup/"
-                className="underline"
-              >
-                signing up
-              </a>{' '}
+              <Link href="https://platform.openai.com/signup/">signing up</Link>{' '}
               on the OpenAI website. This is only necessary for preview
               environments so that the open source community can test the app.
               The token will be saved to your browser&apos;s local storage under
               the name <code className="font-mono">ai-token</code>.
-            </DialogDescription>
-          </DialogHeader>
-          <Input
-            value={previewTokenInput}
-            placeholder="OpenAI API key"
-            onChange={e => setPreviewTokenInput(e.target.value)}
-          />
-          <DialogFooter className="items-center">
+            </Dialog.Description>
+            <TextField.Root>
+              <TextField.Input
+                value={previewTokenInput}
+                placeholder="OpenAI API key"
+                onChange={e => setPreviewTokenInput(e.target.value)}
+              />
+            </TextField.Root>
             <Button
+              variant="classic"
+              className="self-end"
               onClick={() => {
                 setPreviewToken(previewTokenInput)
                 setPreviewTokenDialog(false)
@@ -103,9 +94,9 @@ export function Chat({ id, initialMessages, className }: ChatProps) {
             >
               Save Token
             </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+          </Dialog.Content>
+        </Flex>
+      </Dialog.Root>
     </>
   )
 }

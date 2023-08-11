@@ -3,13 +3,12 @@
 import * as React from 'react'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { ThemeProviderProps } from 'next-themes/dist/types'
-
-import { TooltipProvider } from '@/components/ui/tooltip'
+import { Theme } from '@radix-ui/themes'
 
 export function Providers({ children, ...props }: ThemeProviderProps) {
   return (
     <NextThemesProvider {...props}>
-      <TooltipProvider>{children}</TooltipProvider>
+      <Theme>{children}</Theme>
     </NextThemesProvider>
   )
 }

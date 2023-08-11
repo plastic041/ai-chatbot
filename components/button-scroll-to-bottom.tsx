@@ -4,16 +4,19 @@ import * as React from 'react'
 
 import { cn } from '@/lib/utils'
 import { useAtBottom } from '@/lib/hooks/use-at-bottom'
-import { Button, type ButtonProps } from '@/components/ui/button'
-import { IconArrowDown } from '@/components/ui/icons'
+import { IconButton } from '@radix-ui/themes'
+import { ArrowDown } from '@phosphor-icons/react'
+import type { ComponentPropsWithoutRef } from 'react'
 
-export function ButtonScrollToBottom({ className, ...props }: ButtonProps) {
+export function ButtonScrollToBottom({
+  className,
+  ...props
+}: ComponentPropsWithoutRef<typeof IconButton>) {
   const isAtBottom = useAtBottom()
 
   return (
-    <Button
+    <IconButton
       variant="outline"
-      size="icon"
       className={cn(
         'absolute right-4 top-1 z-10 bg-background transition-opacity duration-300 sm:right-8 md:top-2',
         isAtBottom ? 'opacity-0' : 'opacity-100',
@@ -27,8 +30,8 @@ export function ButtonScrollToBottom({ className, ...props }: ButtonProps) {
       }
       {...props}
     >
-      <IconArrowDown />
+      <ArrowDown />
       <span className="sr-only">Scroll to bottom</span>
-    </Button>
+    </IconButton>
   )
 }

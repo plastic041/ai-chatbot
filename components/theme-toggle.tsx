@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useTheme } from 'next-themes'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@radix-ui/themes'
 import { IconMoon, IconSun } from '@/components/ui/icons'
 
 export function ThemeToggle() {

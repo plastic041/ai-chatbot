@@ -4,7 +4,7 @@ import * as React from 'react'
 import { signIn } from 'next-auth/react'
 
 import { cn } from '@/lib/utils'
-import { Button, type ButtonProps } from '@/components/ui/button'
+import { Button, type ButtonProps } from '@radix-ui/themes'
 import { IconGitHub, IconSpinner } from '@/components/ui/icons'
 
 interface LoginButtonProps extends ButtonProps {

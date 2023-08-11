@@ -9,7 +9,7 @@ import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
 import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard'
 import { IconCheck, IconCopy, IconDownload } from '@/components/ui/icons'
-import { Button } from '@/components/ui/button'
+import { Button } from '@radix-ui/themes'
 
 interface Props {
   language: string
