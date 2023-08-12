@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 
-import { Button, IconButton } from '@radix-ui/themes'
+import { IconButton } from '@radix-ui/themes'
 import {
   Sheet,
   SheetContent,

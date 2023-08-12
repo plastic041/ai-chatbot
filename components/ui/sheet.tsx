@@ -5,6 +5,7 @@ import * as SheetPrimitive from '@radix-ui/react-dialog'
 
 import { cn } from '@/lib/utils'
 import { IconClose } from '@/components/ui/icons'
+import { IconButton } from '@radix-ui/themes'
 
 const Sheet = SheetPrimitive.Root
 
@@ -45,7 +46,13 @@ const SheetContent = React.forwardRef<
   React.ElementRef<typeof SheetPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
-  <SheetPortal>
+  <SheetPortal
+    container={
+      typeof document !== 'undefined'
+        ? (document.getElementsByClassName('radix-themes')[0] as HTMLElement)
+        : undefined
+    }
+  >
     <SheetPrimitive.Content
       ref={ref}
       className={cn(
@@ -55,8 +62,10 @@ const SheetContent = React.forwardRef<
       {...props}
     >
       {children}
-      <SheetPrimitive.Close className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
-        <IconClose />
+      <SheetPrimitive.Close className="absolute right-4 top-[18px] rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary">
+        <IconButton variant="ghost">
+          <IconClose />
+        </IconButton>
         <span className="sr-only">Close</span>
       </SheetPrimitive.Close>
     </SheetPrimitive.Content>

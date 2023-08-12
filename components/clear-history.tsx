@@ -31,8 +31,10 @@ export function ClearHistory({ clearChats }: ClearHistoryProps) {
           This will permanently delete your chat history and remove your data
           from our servers.
         </AlertDialog.Description>
-        <Flex>
-          <AlertDialog.Cancel disabled={isPending}>Cancel</AlertDialog.Cancel>
+        <Flex justify="end" align="center" gap="4">
+          <AlertDialog.Cancel disabled={isPending}>
+            <Button variant="ghost">Cancel</Button>
+          </AlertDialog.Cancel>
           <AlertDialog.Action
             disabled={isPending}
             onClick={event => {
@@ -50,8 +52,10 @@ export function ClearHistory({ clearChats }: ClearHistoryProps) {
               })
             }}
           >
-            {isPending && <Spinner className="mr-2 animate-spin" />}
-            Delete
+            <Button variant="classic" color="red">
+              {isPending && <Spinner className="mr-2 animate-spin" />}
+              Delete
+            </Button>
           </AlertDialog.Action>
         </Flex>
       </AlertDialog.Content>

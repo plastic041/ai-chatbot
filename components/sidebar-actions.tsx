@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'react-hot-toast'
 
 import { type Chat, ServerActionResult } from '@/lib/types'
-import { cn, formatDate } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
 import {
   Button,
   AlertDialog,
@@ -18,16 +18,13 @@ import {
   DialogContent,
   DialogDescription,
   DialogTitle,
-  Tooltip
+  Tooltip,
+  Flex,
+  IconButton,
+  Card,
+  Text
 } from '@radix-ui/themes'
-import {
-  IconShare,
-  IconSpinner,
-  IconTrash,
-  IconUsers
-} from '@/components/ui/icons'
-import Link from 'next/link'
-// import { badgeVariants } from '@/components/ui/badge'
+import { IconShare, IconSpinner, IconTrash } from '@/components/ui/icons'
 
 interface SidebarActionsProps {
   chat: Chat
@@ -71,84 +68,83 @@ export function SidebarActions({
 
   return (
     <>
-      <div className="space-x-1">
-        <Tooltip content="Share chat">
-          <Button
-            variant="ghost"
-            className="hover:bg-background h-6 w-6 p-0"
-            onClick={() => setShareDialogOpen(true)}
-          >
+      <Flex gap="4" align="center">
+        <Tooltip content="Share chat" delayDuration={1000}>
+          <IconButton variant="ghost" onClick={() => setShareDialogOpen(true)}>
             <IconShare />
             <span className="sr-only">Share</span>
-          </Button>
+          </IconButton>
         </Tooltip>
         <Tooltip content="Delete chat">
-          <Button
+          <IconButton
             variant="ghost"
-            className="hover:bg-background h-6 w-6 p-0"
+            color="red"
             disabled={isRemovePending}
             onClick={() => setDeleteDialogOpen(true)}
           >
             <IconTrash />
             <span className="sr-only">Delete</span>
-          </Button>
+          </IconButton>
         </Tooltip>
-      </div>
+      </Flex>
       <Dialog.Root open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
         <DialogContent>
-          <DialogTitle>Share link to chat</DialogTitle>
-          <DialogDescription>
-            Anyone with the URL will be able to view the shared chat.
-          </DialogDescription>
-          <div className="space-y-1 rounded-md border p-4 text-sm">
-            <div className="font-medium">{chat.title}</div>
-            <div className="text-muted-foreground">
-              {formatDate(chat.createdAt)} · {chat.messages.length} messages
-            </div>
-          </div>
-          {chat.sharePath && (
-            <Link
-              href={chat.sharePath}
-              className={cn(
-                // badgeVariants({ variant: 'secondary' }),
-                'mr-auto'
-              )}
-              target="_blank"
+          <Flex direction="column">
+            <DialogTitle>Share link to chat</DialogTitle>
+            <DialogDescription>
+              Anyone with the URL will be able to view the shared chat.
+            </DialogDescription>
+            <Card my="2">
+              <Flex direction="column">
+                <Text>{chat.title}</Text>
+                <Text color="gray" size="2">
+                  {formatDate(chat.createdAt)} · {chat.messages.length} messages
+                </Text>
+              </Flex>
+            </Card>
+            {/* {chat.sharePath && (
+              <Link asChild>
+                <NextLink href={chat.sharePath} target="_blank">
+                  <Flex align="center" className="self-start">
+                    <IconUsers className="mr-2" />
+                    {chat.sharePath}
+                  </Flex>
+                </NextLink>
+              </Link>
+            )} */}
+            <Button
+              variant="classic"
+              disabled={isSharePending}
+              onClick={() => {
+                startShareTransition(async () => {
+                  if (chat.sharePath) {
+                    await new Promise(resolve => setTimeout(resolve, 500))
+                    copyShareLink(chat)
+                    return
+                  }
+
+                  const result = await shareChat(chat)
+
+                  if (result && 'error' in result) {
+                    toast.error(result.error)
+                    return
+                  }
+
+                  copyShareLink(result)
+                })
+              }}
+              className="self-end"
             >
-              <IconUsers className="mr-2" />
-              {chat.sharePath}
-            </Link>
-          )}
-          <Button
-            disabled={isSharePending}
-            onClick={() => {
-              startShareTransition(async () => {
-                if (chat.sharePath) {
-                  await new Promise(resolve => setTimeout(resolve, 500))
-                  copyShareLink(chat)
-                  return
-                }
-
-                const result = await shareChat(chat)
-
-                if (result && 'error' in result) {
-                  toast.error(result.error)
-                  return
-                }
-
-                copyShareLink(result)
-              })
-            }}
-          >
-            {isSharePending ? (
-              <>
-                <IconSpinner className="mr-2 animate-spin" />
-                Copying...
-              </>
-            ) : (
-              <>Copy link</>
-            )}
-          </Button>
+              {isSharePending ? (
+                <>
+                  <IconSpinner className="mr-2 animate-spin" />
+                  Copying...
+                </>
+              ) : (
+                <>Copy link</>
+              )}
+            </Button>
+          </Flex>
         </DialogContent>
       </Dialog.Root>
       <AlertDialog.Root

@@ -1,6 +1,7 @@
 import { getChats, removeChat, shareChat } from '@/app/actions'
 import { SidebarActions } from '@/components/sidebar-actions'
 import { SidebarItem } from '@/components/sidebar-item'
+import { Flex } from '@radix-ui/themes'
 
 export interface SidebarListProps {
   userId?: string
@@ -10,9 +11,9 @@ export async function SidebarList({ userId }: SidebarListProps) {
   const chats = await getChats(userId)
 
   return (
-    <div className="flex-1 overflow-auto">
+    <Flex direction="column" className="flex-1 overflow-auto" px="4">
       {chats?.length ? (
-        <div className="space-y-2 px-2">
+        <Flex direction="column" gap="2">
           {chats.map(
             chat =>
               chat && (
@@ -25,12 +26,12 @@ export async function SidebarList({ userId }: SidebarListProps) {
                 </SidebarItem>
               )
           )}
-        </div>
+        </Flex>
       ) : (
         <div className="p-8 text-center">
           <p className="text-sm text-muted-foreground">No chat history</p>
         </div>
       )}
-    </div>
+    </Flex>
   )
 }

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { useTheme } from 'next-themes'
 
-import { Button } from '@radix-ui/themes'
+import { IconButton } from '@radix-ui/themes'
 import { IconMoon, IconSun } from '@/components/ui/icons'
 
 export function ThemeToggle() {
@@ -11,9 +11,8 @@ export function ThemeToggle() {
   const [_, startTransition] = React.useTransition()
 
   return (
-    <Button
+    <IconButton
       variant="ghost"
-      size="icon"
       onClick={() => {
         startTransition(() => {
           setTheme(theme === 'light' ? 'dark' : 'light')
@@ -26,6 +25,6 @@ export function ThemeToggle() {
         <IconSun className="transition-all" />
       )}
       <span className="sr-only">Toggle theme</span>
-    </Button>
+    </IconButton>
   )
 }

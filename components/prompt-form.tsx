@@ -42,8 +42,8 @@ export function PromptForm({
       }}
       ref={formRef}
     >
-      <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background pl-4 pr-8 sm:rounded-md sm:border sm:pl-8 sm:pr-12">
-        {/* <Tooltip content="New Chat">
+      <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background px-12 sm:rounded-md sm:border sm:px-16">
+        <Tooltip content="New Chat">
           <IconButton
             variant="outline"
             onClick={e => {
@@ -56,7 +56,7 @@ export function PromptForm({
             <Plus />
             <span className="sr-only">New Chat</span>
           </IconButton>
-        </Tooltip> */}
+        </Tooltip>
         <Textarea
           ref={inputRef}
           tabIndex={0}

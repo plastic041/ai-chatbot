@@ -44,8 +44,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           fontMono.variable
         )}
       >
-        <Toaster />
-        <Providers attribute="class" defaultTheme="system" enableSystem>
+        <Providers>
+          <Toaster />
           <Flex className="min-h-screen" direction="column">
             {/* @ts-ignore */}
             <Header />
