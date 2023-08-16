@@ -1,16 +1,15 @@
 'use client'
 
 import { useChat, type Message } from 'ai/react'
-
-import { cn } from '@/lib/utils'
-import { ChatList } from '@/components/chat-list'
-import { ChatPanel } from '@/components/chat-panel'
-import { EmptyScreen } from '@/components/empty-screen'
-import { ChatScrollAnchor } from '@/components/chat-scroll-anchor'
-import { useLocalStorage } from '@/lib/hooks/use-local-storage'
 import { Button, Dialog, Flex, Link, TextField } from '@radix-ui/themes'
 import { useState } from 'react'
 import { toast } from 'react-hot-toast'
+import { ChatList } from './chat-list'
+import { ChatPanel } from './chat-panel'
+import { ChatScrollAnchor } from './chat-scroll-anchor'
+import { EmptyScreen } from '@/components/empty-screen'
+import { useLocalStorage } from '@/lib/hooks/use-local-storage'
+import { cn } from '@/lib/utils'
 
 const IS_PREVIEW = process.env.VERCEL_ENV === 'preview'
 export interface ChatProps extends React.ComponentProps<'div'> {

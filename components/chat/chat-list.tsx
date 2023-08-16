@@ -1,7 +1,7 @@
 import { type Message } from 'ai'
 
 import { Box, Flex } from '@radix-ui/themes'
-import { ChatMessage } from '@/components/chat-message'
+import { ChatMessage } from './chat-message'
 
 export interface ChatList {
   messages: Message[]

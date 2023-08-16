@@ -2,7 +2,7 @@ import { type Metadata } from 'next'
 import { notFound, redirect } from 'next/navigation'
 
 import { getChat } from '@/app/actions'
-import { Chat } from '@/components/chat'
+import { Chat } from '@/components/chat/chat'
 import { getPageSession } from '@/lib/session'
 
 export const preferredRegion = 'home'

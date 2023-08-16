@@ -9,7 +9,7 @@ import { coldarkDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
 import { useCopyToClipboard } from '@/lib/hooks/use-copy-to-clipboard'
 import { IconCheck, IconCopy, IconDownload } from '@/components/ui/icons'
-import { Button } from '@radix-ui/themes'
+import { IconButton } from '@radix-ui/themes'
 
 interface Props {
   language: string
@@ -93,28 +93,26 @@ const CodeBlock: FC<Props> = memo(({ language, value }) => {
   }
 
   return (
-    <div className="relative w-full font-sans codeblock bg-zinc-950">
-      <div className="flex items-center justify-between w-full px-6 py-2 pr-4 bg-zinc-800 text-zinc-100">
+    <div className="codeblock relative w-full bg-zinc-950 font-sans">
+      <div className="flex w-full items-center justify-between bg-zinc-800 px-6 py-2 pr-4 text-zinc-100">
         <span className="text-xs lowercase">{language}</span>
         <div className="flex items-center space-x-1">
-          <Button
-            variant="ghost"
+          <IconButton
+            variant="soft"
             className="hover:bg-zinc-800 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0"
             onClick={downloadAsFile}
-            size="icon"
           >
             <IconDownload />
             <span className="sr-only">Download</span>
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
+          </IconButton>
+          <IconButton
+            variant="soft"
             className="text-xs hover:bg-zinc-800 focus-visible:ring-1 focus-visible:ring-slate-700 focus-visible:ring-offset-0"
             onClick={onCopy}
           >
             {isCopied ? <IconCheck /> : <IconCopy />}
             <span className="sr-only">Copy code</span>
-          </Button>
+          </IconButton>
         </div>
       </div>
       <SyntaxHighlighter

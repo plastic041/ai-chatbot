@@ -1,6 +1,6 @@
 import { getChats, removeChat, shareChat } from '@/app/actions'
-import { SidebarActions } from '@/components/sidebar-actions'
-import { SidebarItem } from '@/components/sidebar-item'
+import { SidebarActions } from '@/components/sidebar/sidebar-actions'
+import { SidebarItem } from '@/components/sidebar/sidebar-item'
 import { Flex } from '@radix-ui/themes'
 
 export interface SidebarListProps {

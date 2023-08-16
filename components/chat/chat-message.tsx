@@ -7,9 +7,9 @@ import remarkMath from 'remark-math'
 
 import { cn } from '@/lib/utils'
 import { CodeBlock } from '@/components/ui/codeblock'
-import { MemoizedReactMarkdown } from '@/components/markdown'
 import { IconOpenAI, IconUser } from '@/components/ui/icons'
-import { ChatMessageActions } from '@/components/chat-message-actions'
+import { MemoizedReactMarkdown } from '@/components/markdown'
+import { ChatMessageActions } from './chat-message-actions'
 import { Avatar, Flex, Text } from '@radix-ui/themes'
 
 export interface ChatMessageProps {
