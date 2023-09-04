@@ -1,4 +1,4 @@
-import { getChats, removeChat, shareChat } from '@/app/actions'
+import { getChats, removeChat } from '@/app/actions'
 import { SidebarActions } from '@/components/sidebar/sidebar-actions'
 import { SidebarItem } from '@/components/sidebar/sidebar-item'
 import { Flex } from '@radix-ui/themes'
@@ -18,11 +18,7 @@ export async function SidebarList({ userId }: SidebarListProps) {
             chat =>
               chat && (
                 <SidebarItem key={chat?.id} chat={chat}>
-                  <SidebarActions
-                    chat={chat}
-                    removeChat={removeChat}
-                    shareChat={shareChat}
-                  />
+                  <SidebarActions chat={chat} removeChat={removeChat} />
                 </SidebarItem>
               )
           )}

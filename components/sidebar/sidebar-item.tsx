@@ -4,9 +4,8 @@ import NextLink from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { type Chat } from '@/lib/types'
-import { cn } from '@/lib/utils'
 import { IconMessage, IconUsers } from '@/components/ui/icons'
-import { Flex, Link, Tooltip } from '@radix-ui/themes'
+import { Button, Flex, Link, Text, Tooltip } from '@radix-ui/themes'
 
 interface SidebarItemProps {
   chat: Chat
@@ -22,25 +21,12 @@ export function SidebarItem({ chat, children }: SidebarItemProps) {
   return (
     <Flex align="center" gap="2" height="6">
       <Flex asChild align="center" gap="2">
-        <Link asChild highContrast={isActive}>
-          <NextLink
-            href={chat.path}
-            className={cn(
-              // 'group w-full pl-8 pr-16',
-              // isActive && 'bg-accent',
-              'flex-1'
-            )}
-          >
-            {chat.sharePath ? (
-              <Tooltip content="Shared chat">
-                <IconUsers />
-              </Tooltip>
-            ) : (
-              <IconMessage />
-            )}
+        <Button variant={isActive ? 'solid' : 'soft'} asChild>
+          <NextLink href={chat.path} className="flex-1">
+            <IconMessage />
             {chat.title}
           </NextLink>
-        </Link>
+        </Button>
       </Flex>
       {isActive && <>{children}</>}
     </Flex>

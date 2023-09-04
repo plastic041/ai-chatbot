@@ -2,11 +2,9 @@ import { UseChatHelpers } from 'ai/react'
 import * as React from 'react'
 import Textarea from 'react-textarea-autosize'
 
-import { Box, IconButton, Tooltip } from '@radix-ui/themes'
+import { IconButton, Tooltip } from '@radix-ui/themes'
 import { useEnterSubmit } from '@/lib/hooks/use-enter-submit'
-import { cn } from '@/lib/utils'
-import { useRouter } from 'next/navigation'
-import { ArrowElbowDownLeft, Plus } from '@phosphor-icons/react'
+import { ArrowElbowDownLeft } from '@phosphor-icons/react'
 
 export interface PromptProps
   extends Pick<UseChatHelpers, 'input' | 'setInput'> {
@@ -22,13 +20,6 @@ export function PromptForm({
 }: PromptProps) {
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
-  const router = useRouter()
-
-  React.useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.focus()
-    }
-  }, [])
 
   return (
     <form
@@ -42,21 +33,7 @@ export function PromptForm({
       }}
       ref={formRef}
     >
-      <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background px-12 sm:rounded-md sm:border sm:px-16">
-        <Tooltip content="New Chat">
-          <IconButton
-            variant="outline"
-            onClick={e => {
-              e.preventDefault()
-              router.refresh()
-              router.push('/')
-            }}
-            className={cn('absolute left-0 top-4 bg-background sm:left-4')}
-          >
-            <Plus />
-            <span className="sr-only">New Chat</span>
-          </IconButton>
-        </Tooltip>
+      <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background pr-12 sm:rounded-md sm:border sm:pl-4 sm:pr-16">
         <Textarea
           ref={inputRef}
           tabIndex={0}
